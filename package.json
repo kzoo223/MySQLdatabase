@@ -1,0 +1,19 @@
+{
+  "name": "mysqldb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "BamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kzoo223/MySQLdatabase.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kzoo223/MySQLdatabase/issues"
+  },
+  "homepage": "https://github.com/kzoo223/MySQLdatabase#readme"
+}
