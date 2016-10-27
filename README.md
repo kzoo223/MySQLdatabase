@@ -13,6 +13,9 @@ Allows for viewing of current items/stock as well as ordering by id number
 * If stock is sufficient, calculates total and checks out, updating stock in database
 * If not enough stock, notify customer
 
+
+![customer js example](https://github.com/kzoo223/MySQLdatabase/blob/master/images/cust1.png)
+
 ### BamazonManager.js
 
 Allows management of current inventory allowing for updates to stock for specific items as well as viewing low inventory items.
@@ -23,6 +26,9 @@ Allows management of current inventory allowing for updates to stock for specifi
   * Add inventory prompts the user to select Id of product and how many they would like to add then updates the quantity of that item
   * Add new product prompts user to input details for new item and inserts this into the table
   
+![manager js example](https://github.com/kzoo223/MySQLdatabase/blob/master/images/manager1.png)
+![manager js example](https://github.com/kzoo223/MySQLdatabase/blob/master/images/manager2.png)
+![manager js example](https://github.com/kzoo223/MySQLdatabase/blob/master/images/manager3.png)
 
 ## Technologies used
 
@@ -33,3 +39,5 @@ Allows management of current inventory allowing for updates to stock for specifi
 ## prereq
 
 Package.json
+
+
