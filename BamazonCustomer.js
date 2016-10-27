@@ -33,15 +33,18 @@ function begin(){
       }
     ]).then(function(answer){
         //updated to connection query
-        connection.query('SELECT * from PRODUCTS where itemID ='+answer.itemId, function(err, response){
+        connection.query('SELECT * from PRODUCTS where id ='+answer.itemId, function(err, response){
           var howMany = answer.quantity
 
           if(res[0].stockQuantity>=howMany){
+            console.log("\n------------------------------------------------------")
             console.log("Your total is $"+res[0].price * howMany);
+            console.log("\n------------------------------------------------------")
             
             //update the quantity of the item
             connection.query("UPDATE Products SET ? WHERE ?", [{stockQuantity: (res[0].stockQuantity - howMany)}, {id: answer.itemId}], function (err, res){
                 if(err) throw err;
+                begin();
               })
           }else{
             console.log("\n------------------------------------------------------")
