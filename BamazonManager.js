@@ -115,10 +115,22 @@ function start(){
             message: "Please add the quantity for the product"
           }
         ]).then(function(answer){
-              connection.query("INSERT INTO PRODUCTS(productName, departmentName, price, stockQuantity) VALUES (" +answer.newProdName+ "," +answer.newProdDept+ "," + answer.newProdPrice + "," + answer.newProdQuant+ ");", function(err, res){
-                console.log(res)
+
+          if(answer.newProdQuant >= 0){
+              connection.query("INSERT INTO PRODUCTS(productName, departmentName, price, stockQuantity) VALUES ("+ "'" +answer.newProdName+ "'" + "," + "'" +answer.newProdDept+ "'" + "," + "'"+answer.newProdPrice+ "'" + ","+ "'" + answer.newProdQuant+ "'" + ");", function(err, respo){
+                        console.log("INSERT INTO PRODUCTS(productName, departmentName, price, stockQuantity) VALUES ("+ "'" +answer.newProdName+ "'" + "," + "'" +answer.newProdDept+ "'" + "," + "'"+answer.newProdPrice+ "'" + ","+ "'" + answer.newProdQuant+ "'" + ");")
+                console.log("\n------------------------------------------------------")
+                console.log("New Product Added!")
+                console.log("\n------------------------------------------------------")
+                start();
               })
-          start();
+          }
+          else{
+            console.log("\n------------------------------------------------------")
+                console.log("You did not select a valid quantity!")
+                console.log("\n------------------------------------------------------")
+                start();
+          }
           });
       break;
     }
