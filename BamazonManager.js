@@ -70,20 +70,17 @@ function start(){
             //updated to connection query
             connection.query('SELECT * from PRODUCTS where id ='+answer.itemId, function(err, res){
               if(err) throw err;
-              console.log(answer.itemId)
-              console.log(howMany)
-              console.log(res)
+                var updatedQuantity = res[0].stockQuantity + howMany
 
               if(howMany >= 0){
                 //update the quantity of the item
                 console.log("\n------------------------------------------------------")
-                console.log("Quantity updated for:");
+                console.log("Quantity updated for:" + res[0].productName);
                 console.log("\n------------------------------------------------------")
-                // connection.query("UPDATE Products SET ? WHERE ?", [{stockQuantity: updatedQuantity}, {id: answer.itemId}], function (err, res){
-                //     console.log(res)
-                //     if(err) throw err;
-                //     start();
-                //   })
+                  connection.query("UPDATE Products SET ? WHERE ?", [{stockQuantity: updatedQuantity}, {id: answer.itemId}], function (err, res){
+                  if(err) throw err;
+                  start();
+                  })
               }else{
                 console.log("\n------------------------------------------------------")
                 console.log("You did not select a valid quantity!")
@@ -94,13 +91,35 @@ function start(){
           });
       break;
       //add new products
-      case "VIEW PRODUCTS":
-        connection.query("SELECT * FROM products", function(err, res){
-        if(err) throw err;
-        for(var i = 0; i<res.length; i++){
-          console.log("Id: " + res[i].id + " | ", "Name: " + res[i].productName + " | ", "Department: " + res[i].departmentName + " | ","Price: " + res[i].price + " | ","Stock: " + res[i].stockQuantity)
-        }
-        });
+      case "ADD NEW PRODUCT":
+        inquirer.prompt([
+          {
+            type: "input",
+            name: "newProdName",
+            message: "Please add the name of the new product"
+          },
+          
+          {
+            type: "input",
+            name: "newProdDept",
+            message: "Please add the department for the product"
+          },
+          {
+            type: "input",
+            name: "newProdPrice",
+            message: "Please add the price for the product"
+          },
+          {
+            type: "input",
+            name: "newProdQuant",
+            message: "Please add the quantity for the product"
+          }
+        ]).then(function(answer){
+              connection.query("INSERT INTO PRODUCTS(productName, departmentName, price, stockQuantity) VALUES (" +answer.newProdName+ "," +answer.newProdDept+ "," + answer.newProdPrice + "," + answer.newProdQuant+ ");", function(err, res){
+                console.log(res)
+              })
+          start();
+          });
       break;
     }
   })
