@@ -32,24 +32,24 @@ function begin(){
         message: "How many would you like to buy?"
       }
     ]).then(function(answer){
-        //has to be id -1 to point to z index of item
-        var whichItem = answer.itemId-1
-        var howMany = answer.quantity
+        //updated to connection query
+        connection.query('SELECT * from PRODUCTS where itemID ='+answer.itemId, function(err, response){
+          var howMany = answer.quantity
 
-        if(res[whichItem].stockQuantity>=howMany){
-          console.log("Your total is $"+res[whichItem].price * howMany);
-          
-          //update the quantity of the item
-          connection.query("UPDATE Products SET ? WHERE ?", [{stockQuantity: (res[whichItem].stockQuantity - howMany)}, {id: answer.itemId}], function (err, res){
-              if(err) throw err;
-            })
-      }else{
-        console.log("\n------------------------------------------------------")
-        console.log("Not enough inventory!  Please try again!")
-        console.log("\n------------------------------------------------------")
-        begin();
-      }
-
+          if(res[0].stockQuantity>=howMany){
+            console.log("Your total is $"+res[0].price * howMany);
+            
+            //update the quantity of the item
+            connection.query("UPDATE Products SET ? WHERE ?", [{stockQuantity: (res[0].stockQuantity - howMany)}, {id: answer.itemId}], function (err, res){
+                if(err) throw err;
+              })
+          }else{
+            console.log("\n------------------------------------------------------")
+            console.log("Not enough inventory!  Please try again!")
+            console.log("\n------------------------------------------------------")
+            begin();
+          }
+        })
       });
   })
 }
